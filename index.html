@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Stock Calculator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <h1>Stock Calculator!</h1>
+        <form id="stock_return">
+            <label for="currentPrice">Current Price:</label>
+            <input type="text" id="currentPrice" name="currentPrice">
+            <br>
+
+            <label for="percentChange">Percent Change:</label>
+            <input type="number" id="percentChange" name="percentChange">
+            <br>
+            <button type="submit">Calculate!</button>
+        </form>
+        <p id="calcValue"></p>
+
+        <script>
+            document.getElementbyId('stock_return').addEventLisenter('submit', function(calc) {
+                event.preventDefault();
+        
+                const price = document.getElementById('currentPrice').value;
+                const percent = document.getElementById('percentChange').value;
+                const calcValue = price * percent + price;
+                document.getElementbyId('calcValue').innterHTML = calcValue;
+            })
+        </script>
+
+
+    </body>
+</html>
