@@ -6,27 +6,66 @@
     </head>
     <body>
         <h1>Stock Calculator!</h1>
+        <h2>Return Amount:</h2>
         <form id="stock_return">
-            <label for="currentPrice">Current Price:</label>
+            <label for="currentPrice">Current Price: $</label>
             <input type="text" id="currentPrice" name="currentPrice">
             <br>
 
             <label for="percentChange">Percent Change:</label>
-            <input type="number" id="percentChange" name="percentChange">
+            <input type="number" id="percentChange" name="percentChange"><label for="percentChange">%</label>
             <br>
             <button type="submit">Calculate!</button>
         </form>
         <p id="calcValue"></p>
 
         <script>
-            document.getElementbyId('stock_return').addEventLisenter('submit', function(calc) {
+            document.getElementById('stock_return').addEventListener('submit', function(event) {
                 event.preventDefault();
-        
-                const price = document.getElementById('currentPrice').value;
-                const percent = document.getElementById('percentChange').value;
-                const calcValue = price * percent + price;
-                document.getElementbyId('calcValue').innterHTML = calcValue;
-            })
+                
+                const price = parseFloat(document.getElementById('currentPrice').value);
+                const percent = parseFloat(document.getElementById('percentChange').value);
+
+                if (isNaN(price) || isNaN(percent)) {
+                    document.getElementById('calcValue').innerHTML = 'ERROR - Please enter valid numbers!'
+                    return;
+                };
+                
+                const calcValue = price * (percent / 100) + price;
+                
+                document.getElementById('calcValue').innerHTML = `Final Price: $${calcValue.toFixed(2)}`;
+            });
+        </script>
+
+        <h2>Percent Needed:</h2>
+        <form id="percent_return">
+            <label for="currentPrice2">Current Price: $</label>
+            <input type="text" id="currentPrice2" name="currentPrice2">
+            <br>
+
+            <label for="targetPrice">Target Price: $</label>
+            <input type="text" id="targetPrice" name="targetPrice">
+            <br>
+            <button type="submit">Calculate!</button>
+        </form>
+        <p id="percentValue"></p>
+
+        <script>
+            document.getElementById('percent_return').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const curr_price = parseFloat(document.getElementById('currentPrice2').value);
+                const target_price = parseFloat(document.getElementById('targetPrice').value);
+
+                if (isNaN(curr_price) || isNaN(target_price)) {
+                    document.getElementById('percentValue').innerHTML = 'ERROR - Please enter valid numbers!'
+                    return;
+                };
+                
+                const calcPercent = ((target_price - curr_price) / curr_price) * 100;
+                
+                document.getElementById('percentValue').innerHTML = `Percent Needed: ${calcPercent.toFixed(2)}%`;
+            });
         </script>
 
 
